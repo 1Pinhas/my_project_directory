@@ -17,7 +17,6 @@ class ClientController extends AbstractController
             'controller_name' => 'ClientController',
         ]);
     }
-
     //utilsationn des path variables(les données en parametres)
     #[Route('/clients/show/{id?}', name: 'clients.show', methods:['GET'])]
     public function show(int $id): Response
@@ -54,5 +53,4 @@ class ClientController extends AbstractController
             'controller_name' => 'ClientController',
         ]);
     }
-
 }
