@@ -13,7 +13,7 @@ class ClientController extends AbstractController
     #[Route('/clients', name: 'clients.index', methods:['GET'])]
     public function index(Request $request): Response
     {
-        return $this->render('client/list.html.twig', [
+        return $this->render('client/index.html.twig', [
             'controller_name' => 'ClientController',
         ]);
     }
@@ -21,7 +21,7 @@ class ClientController extends AbstractController
     #[Route('/clients/show/{id?}', name: 'clients.show', methods:['GET'])]
     public function show(int $id): Response
     {
-        return $this->render('client/list.html.twig', [
+        return $this->render('client/index.html.twig', [
             'controller_name' => 'ClientController',
         ]);
     }
@@ -30,10 +30,10 @@ class ClientController extends AbstractController
     #[Route('/clients/search/phone', name: 'clients.showClientByPhone', methods:['GET'])]
     public function searchClientByPhone(Request $request): Response
     {
-        //$request->query->get('phone')=>$_GET['key];
+        //$request->query->get('phone')=>$_GET['key'];
         //$request->request->get('name_field') => $_POST['name_field']
         $phone = $request->query->get('tel');
-        return $this->render('client/list.html.twig', [
+        return $this->render('client/index.html.twig', [
             'controller_name' => 'ClientController',
         ]);
     }
@@ -41,7 +41,7 @@ class ClientController extends AbstractController
     #[Route('/clients/remove/{id?}', name: 'clients.remove', methods:['GET', 'POST'])]
     public function remove(int $id): Response
     {
-        return $this->render('client/list.html.twig', [
+        return $this->render('client/index.html.twig', [
             'controller_name' => 'ClientController',
         ]);
     }
@@ -49,7 +49,7 @@ class ClientController extends AbstractController
     #[Route('/clients/store', name: 'clients.store', methods:['GET', 'POST'])]
     public function store(): Response
     {
-        return $this->render('client/list.html.twig', [
+        return $this->render('client/index.html.twig', [
             'controller_name' => 'ClientController',
         ]);
     }

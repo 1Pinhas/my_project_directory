@@ -7,30 +7,48 @@
         <text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
-            <script src="https://cdn.tailwindcss.com"></script>
-            <link href="./output.css" rel="stylesheet">
+            <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
         {% endblock %}
         
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
     </head>
-    <body>
+        <body class="bg-gray-100">
         {% block body %}
-            <div class="container">
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">
-                        <h4 class="card-title">Title</h4>
-                        <p class="card-text">Text</p>
-                    </div>
-                    <div class="card-footer text-muted">Footer</div>
-                </div>
+            {% block header %}
+                <header>
+                    <nav class="bg-white shadow p-4">
+                        <div class="container mx-auto flex justify-between items-center">
+                            <div class="flex">
+                                <a href="#" class="text-lg font-semibold mr-4">Navbar</a>
+                                <a href="{{path('clients.index')}}" class="hover:text-blue-600 mr-4">Clients</a>
+                                <a href="{{path('articles.index')}}" class="hover:text-blue-600 mr-4">Articles</a>
+                                <a href="#" class="hover:text-blue-600 mr-4">Link</a>
+                                <div class="relative group">
+                                    <button class="hover:text-blue-600">Dropdown ▼</button>
+                                    <div class="absolute hidden group-hover:block bg-white shadow-lg mt-2 p-2 rounded">
+                                        <a href="#" class="block px-4 py-2 hover:bg-gray-200">Option 1</a>
+                                        <a href="#" class="block px-4 py-2 hover:bg-gray-200">Option 2</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="text" placeholder="Search" class="border rounded px-3 py-1" />
+                        </div>
+                    </nav>
+                </header>
+            {% endblock %}
+            <main>
+                {% block main %}
+
+                {% endblock %}
+            </main>
+            {% block footer %}
+                <footer>
                 
-            </div>
-            
+                </footer>
+            {% endblock %}
+        {% endblock %}
+        {% block javascripts %}
+            <script src="https://cdn.jsdelivr.net/npm/flowbite@1.6.3/dist/flowbite.min.js"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.4.2/dist/cdn.min.js" integrity="sha384-o6jmvoImBM/1ovF8FvfjIK6XmqDe8PO21pzPA1nvvK7d5n9qIBwK7GJXe1ZDZB+S" crossorigin="anonymous"></script
         {% endblock %}
     </body>
 </html>
