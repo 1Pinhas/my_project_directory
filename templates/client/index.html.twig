@@ -25,19 +25,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="hover:bg-gray-100">
-            <td class="border px-4 py-2 flex items-center">
-              <img src="{{asset('image/avatar.png')}}" alt="avatar" class="rounded-full mr-2 w-20" />
-            </td>
-            <td class="border px-4 py-2">XXX</td>
-            <td class="border px-4 py-2">XXX</td>
-            <td class="border px-4 py-2">x_surname</td>
-            <td class="border px-4 py-2">771001010</td>
-            <td class="border px-4 py-2 space-x-2">
-                <a id="" name="" class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white font-medium rounded-md px-4 py-2" href="" role="button">Detail</a>
-                <a id="" name="" class="border border-red-800 text-gray-800 hover:bg-red-800 hover:text-white font-medium rounded-md px-4 py-2" href="" role="button">Delete</a>
-            </td>
-          </tr>
+          {%for client in datas %}
+            <tr class="hover:bg-gray-100">
+              <td class="border px-4 py-2 flex items-center">
+                <img src="{{asset('image/avatar.png')}}" alt="avatar" class="rounded-full mr-2 w-20" />
+              </td>
+              <td class="border px-4 py-2">{{client.user.nom}}</td>
+              <td class="border px-4 py-2">{{client.user.prenom}}</td>
+              <td class="border px-4 py-2">{{client.surname}}</td>
+              <td class="border px-4 py-2">{{client.phone}}</td>
+              <td class="border px-4 py-2 space-x-2">
+                  <a id="" name="" class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white font-medium rounded-md px-4 py-2" href="" role="button">Detail</a>
+                  <a id="" name="" class="border border-red-800 text-gray-800 hover:bg-red-800 hover:text-white font-medium rounded-md px-4 py-2" href="" role="button">Delete</a>
+              </td>
+            </tr>
+          {%endfor%}
         </tbody>
       </table>
 
