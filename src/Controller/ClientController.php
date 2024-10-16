@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\ClientType;
 use App\Repository\ClientRepository;
+use App\Entity\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,8 +53,10 @@ class ClientController extends AbstractController
     #[Route('/clients/store', name: 'clients.store', methods:['GET', 'POST'])]
     public function store(): Response
     {
-        return $this->render('client/index.html.twig', [
-            'controller_name' => 'ClientController',
+        $client = new Client();
+        $form = $this->createForm(ClientType::class, $client);
+        return $this->render('client/form.html.twig', [
+            'formClient' => $form->createView(),
         ]);
     }
 }

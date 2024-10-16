@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{%block main%}
+    <div class="container mx-auto mt-10">
+      <div class="bg-white p-6 rounded shadow-md">
+        <div class="justify-between mb-4">
+          <h2 class="text-xl font-semibold">Enregistrement d un client</h2>
+          <div class= "card-body">
+            {{form(formClient)}}
+          </div>
+        </div>
+      </div>
+    </div>
+{%endblock%}
