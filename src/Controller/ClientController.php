@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\ClientType;
 use App\Repository\ClientRepository;
 use App\Entity\Client;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,10 +52,20 @@ class ClientController extends AbstractController
     }
 
     #[Route('/clients/store', name: 'clients.store', methods:['GET', 'POST'])]
-    public function store(): Response
+    public function store(Request $request, EntityManagerInterface $entityManager): Response
     {
         $client = new Client();
         $form = $this->createForm(ClientType::class, $client);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $client->setCreateAt(new \DateTimeImmutable());
+            $client->setUpdateAt(new \DateTimeImmutable());
+            $entityManager->persist($client);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('clients.index');
+
+        }
         return $this->render('client/form.html.twig', [
             'formClient' => $form->createView(),
         ]);

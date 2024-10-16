@@ -6,6 +6,8 @@ use App\Entity\Client;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,17 +18,18 @@ class ClientType extends AbstractType
         $builder
             ->add('phone')
             ->add('surname')
-            ->add('adresse')
-            ->add('createAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updateAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('users', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            ->add('adresse', TextareaType::class)
+            // ->add('createAt', null, [
+            //     'widget' => 'single_text',
+            // ])
+            // ->add('updateAt', null, [
+            //     'widget' => 'single_text',
+            // ])
+            // ->add('users', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'id',
+            // ])
+            ->add('Save', SubmitType::class)
         ;
     }
 
