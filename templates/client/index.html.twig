@@ -1,17 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {%block main%}
-      <div class="container mx-auto mt-10">
+  <div class="container mx-auto mt-10">
     <div class="bg-white p-6 rounded shadow-md">
       <div class="flex justify-between mb-4">
         <h2 class="text-xl font-semibold">Liste des clients</h2>
-        <a id="" name="" class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white font-medium rounded-md px-4 py-2" href="{{path('clients.store')}}" role="button">Creat</a>
+        <a id="" name="" class="border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white font-medium rounded-md px-4 py-2" href="{{path('clients.store')}}" role="button">Create</a>
       </div>
-
-      <div class="relative mb-4">
-        <input type="text" placeholder="Téléphone" class="border w-80 px-4 py-2 rounded" />
-        <button class="absolute ml-12  bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Search</button>
-      </div>
+      {{form_start(formSearch, {'attr' :{ 
+        'class' : 'relative mb-4'
+      }})}}
+        <div class = 'mb-2' text-red-500>
+          {{form_errors(formSearch.phone)}}
+        </div>
+        {{form_widget(formSearch.phone, {'attr' : {
+          'class' : 'border w-80 px-4 py-2 rounded'
+        } })}}
+        {{form_widget(formSearch.Search)}}
+      {{form_end(formSearch)}}
 
       <table class="w-full border-collapse border border-gray-300 rounded">
         <thead>
@@ -56,14 +62,14 @@
       </table>
 
       <div class="flex justify-between items-center mt-4">
-        <div class="text-gray-600">Page 1 of 3</div>
-        <div class="space-x-1">
-          <button class="px-3 py-1 border rounded">«</button>
-          <button class="px-3 py-1 border rounded bg-blue-500 text-white">1</button>
-          <button class="px-3 py-1 border rounded">2</button>
-          <button class="px-3 py-1 border rounded">3</button>
-          <button class="px-3 py-1 border rounded">»</button>
-        </div>
+        <div class="text-gray-600"></div>
+          <div class="space-x-1">
+            <button class="px-3 py-1 border rounded">«</button>
+            <button class="px-3 py-1 border rounded bg-blue-500 text-white">1</button>
+            <button class="px-3 py-1 border rounded">2</button>
+            <button class="px-3 py-1 border rounded">3</button>
+            <button class="px-3 py-1 border rounded">»</button>
+          </div>
       </div>
     </div>
   </div>

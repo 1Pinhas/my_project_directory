@@ -33,11 +33,12 @@ class ClientType extends AbstractType
                     new NotNull([
                         'message'=> 'le telephone ne doit pas etre vide '
                     ]),
-                    new Regex('/^([77|78|76])([0-9]{7})$/',
+                    new Regex('/^([77|78|76])([0-9]{8})$/',
                         'Le numero de telephone doit conformer au format telephone'
                     )
                 ]
                 ])
+                
             ->add('surname', TextType::class,[
                 'required'=> false,
             ])

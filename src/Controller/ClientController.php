@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ClientType;
+use App\Form\SearchClientType;
 use App\Repository\ClientRepository;
 use App\Entity\Client;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,12 +15,19 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ClientController extends AbstractController
 {
-    #[Route('/clients', name: 'clients.index', methods:['GET'])]
-    public function index(ClientRepository $clientRepository): Response
+    #[Route('/clients', name: 'clients.index', methods:['GET', 'POST'])]
+    public function index(ClientRepository $clientRepository, Request $request): Response
     {
-        $clients = $clientRepository->findAll();
+        $formSearch = $this->createForm(SearchClientType::class);
+        $formSearch->handleRequest($request);
+        if ($formSearch->isSubmitted($request) && $formSearch->isValid()) {
+            $clients = $clientRepository->findBy(['phone'=> $formSearch->get('phone')->getData()]);
+        }else {
+            $clients = $clientRepository->findAll();
+        }
         return $this->render('client/index.html.twig', [
-            'datas'=> $clients
+            'datas'=> $clients,
+            'formSearch'=> $formSearch->createView(),
         ]);
     }
     //utilsationn des path variables(les données en parametres)
