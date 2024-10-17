@@ -6,8 +6,12 @@ use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
+#[UniqueEntity('phone', message:'le phone doit etre unique')]
+#[UniqueEntity('surname', message:'le surname doit etre unique')]
 class Client
 {
     #[ORM\Id]
@@ -18,7 +22,8 @@ class Client
     #[ORM\Column(length: 11)]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, unique: true)] 
+    #[Assert\NotBlank(message: 'Entrez un surname valide')]
     private ?string $surname = null;
 
     #[ORM\Column(length: 70)]
