@@ -145,6 +145,13 @@ class ClientType extends AbstractType
 
     */
 
+    public static function getComponentName(): string
+        {
+            return 'phone_form_component';
+        }
+    }
+    
+    
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
