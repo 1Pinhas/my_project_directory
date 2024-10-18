@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Liste des Dettes</h1>
+    <form method="get" action="{{ path('dettes.index') }}">
+        <label>
+            <input type="checkbox" name="status[]" value="payer" {% if 'payer' in status %}checked{% endif %}>
+            Payer
+        </label>
+        <label>
+            <input type="checkbox" name="status[]" value="nonpayer" {% if 'nonpayer' in status %}checked{% endif %}>
+            NonPayer
+        </label>
+        <button type="submit">Filtrer</button>
+    </form>
+    <ul>
+        {% for dette in dettes %}
+            <li>{{ dette.description }} - {{ dette.montant }} - {{ dette.status }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('dettes.create') }}">Créer une nouvelle Dette</a>
+{% endblock %}
