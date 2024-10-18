@@ -6,9 +6,14 @@ use App\Entity\User;
 use App\Entity\Client;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ClientFixtures extends Fixture
 {
+    private $encoder;
+    public function __construct(UserPasswordHasherInterface $encoder){
+        $this->encoder = $encoder;
+    }
     public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < 50; $i++) {
@@ -21,7 +26,11 @@ class ClientFixtures extends Fixture
                 $user->setNom('Nom'. $i);
                 $user->setPrenom('Prenom'. $i);
                 $user->setLogin('login'. $i);
-                $user->setPassword('password'. $i);
+                $plaintextPassword = "password";
+                $hashedPassword = $this ->encoder->hashPassword(
+                    $user, 
+                    $plaintextPassword
+                );
                 $client ->setUsers($user);
             }
             $manager ->persist($client);
