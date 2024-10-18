@@ -63,9 +63,8 @@
 
       <nav aria-label="Page navigation" class="flex justify-end">
         <ul class="flex space-x-2">
-          <!-- Disabled previous button -->
           <li class="page-item disabled">
-              <a class="page-link pointer-events-none opacity-50" href="#" aria-label="Previous">
+              <a class="page-link pointer-events-none opacity-50" href="{% if page > 1 %}?page={{ page - 1 }}{% else %}#{% endif %}" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
               </a>
           </li>
@@ -79,7 +78,9 @@
 
           <!-- Next button -->
           <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
+              <a class="page-link" href="{% if page < maxPage %}?page={{
+                page + 1
+              }}{% else %}#{% endif %}" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
               </a>
           </li>

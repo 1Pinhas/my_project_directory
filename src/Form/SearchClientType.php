@@ -2,14 +2,15 @@
 
 namespace App\Form;
 
+use App\Entity\Client;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\NotNull;
-use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SearchClientType extends AbstractType
 {
@@ -45,32 +46,32 @@ class SearchClientType extends AbstractType
     }
     */
 
-    // public function buildForm(FormBuilderInterface $builder, array $options): void // formulaire dynamique avec form Event
-    // {
-    //     $builder
-    //         ->add('phone', TextType::class, [
-    //             'required' => false,
-    //             'attr' => [
-    //                 'placeholder' => 'phone',
-    //             ],
-    //             'constraints' => [
-    //                 new NotBlank([
-    //                     'message' => 'Veuillez renseigner un numero valide'
-    //                 ]),
-    //                 new NotNull([
-    //                     'message' => 'le telephone ne doit pas etre vide '
-    //                 ]),
-    //                 new Regex('/^([77|78|76])([0-9]{8})$/', 'Le numero de telephone doit etre au format telephone')
-    //             ]
-    //         ])
-    //         ->add('Search', SubmitType::class, [
-    //             'attr' => [
-    //                 'class' => 'border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white font-medium rounded-md px-4 py-2'
-    //             ]
-    //         ]);
+    public function buildForm(FormBuilderInterface $builder, array $options): void // formulaire dynamique avec form Event
+    {
+        $builder
+            ->add('phone', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'phone',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un numero valide'
+                    ]),
+                    new NotNull([
+                        'message' => 'le telephone ne doit pas etre vide '
+                    ]),
+                    new Regex('/^([77|78|76])([0-9]{8})$/', 'Le numero de telephone doit etre au format telephone')
+                ]
+            ])
+            ->add('Search', SubmitType::class, [
+                'attr' => [
+                    'class' => 'border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white font-medium rounded-md px-4 py-2'
+                ]
+            ]);
 
-    //     $builder->addEventSubscriber(new \App\EventSubscriber\FormSubscriber());
-    // }
+        $builder->addEventSubscriber(new \App\EventSubscriber\FormSubscriber());
+    }
 
     /*formulaire dinamique avec Symfony live component,
         // src/Component/PhoneFormComponent.php
@@ -133,54 +134,49 @@ class SearchClientType extends AbstractType
         // use Symfony\UX\LiveComponent\LiveComponentInterface;
         // use Symfony\Component\Form\FormFactoryInterface;
 
-        class PhoneFormComponent implements LiveComponentInterface
-        {
-            use DefaultActionTrait;
+        // class PhoneFormComponent implements LiveComponentInterface
+        // {
+        //     use DefaultActionTrait;
 
-            private $formFactory;
+        //     private $formFactory;
 
-            public function __construct(FormFactoryInterface $formFactory)
-            {
-                $this->formFactory = $formFactory;
-            }
+        //     public function __construct(FormFactoryInterface $formFactory)
+        //     {
+        //         $this->formFactory = $formFactory;
+        //     }
 
-            public function buildForm()
-            {
-                return $this->formFactory->createBuilder()
-                    ->add('phone', TextType::class, [
-                        'required' => false,
-                        'attr' => [
-                            'placeholder' => '773893258',
-                        ],
-                        'constraints' => [
-                            new NotBlank([
-                                'message' => 'Veuillez renseigner un numero valide'
-                            ]),
-                            new NotNull([
-                                'message' => 'le telephone ne doit pas etre vide '
-                            ]),
-                            new Regex('/^([77|78|76])([0-9]{8})$/', 'Le numero de telephone doit conformer au format telephone')
-                        ]
-                    ])
-                    ->add('surname', TextType::class, [
-                        'required' => false,
-                    ])
-                    ->add('adresse', TextareaType::class, [
-                        'required' => false,
-                    ])
-                    ->add('Save', SubmitType::class)
-                    ->getForm();
-            }
-
-            public static function getComponentName(): string
-            {
-                return 'phone_form_component';
-            }
-        }
+        //     public function buildForm()
+        //     {
+        //         return $this->formFactory->createBuilder()
+        //             ->add('phone', TextType::class, [
+        //                 'required' => false,
+        //                 'attr' => [
+        //                     'placeholder' => '773893258',
+        //                 ],
+        //                 'constraints' => [
+        //                     new NotBlank([
+        //                         'message' => 'Veuillez renseigner un numero valide'
+        //                     ]),
+        //                     new NotNull([
+        //                         'message' => 'le telephone ne doit pas etre vide '
+        //                     ]),
+        //                     new Regex('/^([77|78|76])([0-9]{8})$/', 'Le numero de telephone doit conformer au format telephone')
+        //                 ]
+        //             ])
+        //             ->add('surname', TextType::class, [
+        //                 'required' => false,
+        //             ])
+        //             ->add('adresse', TextareaType::class, [
+        //                 'required' => false,
+        //             ])
+        //             ->add('Save', SubmitType::class)
+        //             ->getForm();
+        //     }
+        // }
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'datas' => Client::class
         ]);
     }
 }
