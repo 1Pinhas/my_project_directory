@@ -23,7 +23,7 @@ class ClientController extends AbstractController
         $page = $request->query->getInt('page',1);
         $count = 0;
         $maxPage = 0;
-        $limit = 3;
+        $limit = 8;
         if ($formSearch->isSubmitted($request) && $formSearch->isValid()) {
             $clients = $clientRepository->findBy(['phone'=> $formSearch->get('phone')->getData()]);
         }else {
@@ -74,8 +74,8 @@ class ClientController extends AbstractController
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $client->setCreateAt(new \DateTimeImmutable());
-            $client->setUpdateAt(new \DateTimeImmutable());
+            // $client->setCreateAt(new \DateTimeImmutable());
+            // $client->setUpdateAt(new \DateTimeImmutable());
             $entityManager->persist($client);
             $entityManager->flush();
 

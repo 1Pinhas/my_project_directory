@@ -38,6 +38,13 @@ class User
     #[ORM\OneToOne(mappedBy: 'users', cascade: ['persist', 'remove'])]
     private ?Client $client = null;
 
+    public function __construct(){
+        $this->createAt = new \DateTimeImmutable();
+        $this->updateAt = new \DateTimeImmutable();
+        $this->isBlocked = false;
+
+    }
+
     public function getId(): ?int
     {
         return $this->id;
