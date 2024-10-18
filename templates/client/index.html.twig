@@ -61,16 +61,30 @@
         </tbody>
       </table>
 
-      <div class="flex justify-between items-center mt-4">
-        <div class="text-gray-600"></div>
-          <div class="space-x-1">
-            <button class="px-3 py-1 border rounded">«</button>
-            <button class="px-3 py-1 border rounded bg-blue-500 text-white">1</button>
-            <button class="px-3 py-1 border rounded">2</button>
-            <button class="px-3 py-1 border rounded">3</button>
-            <button class="px-3 py-1 border rounded">»</button>
-          </div>
-      </div>
+      <nav aria-label="Page navigation" class="flex justify-end">
+        <ul class="flex space-x-2">
+          <!-- Disabled previous button -->
+          <li class="page-item disabled">
+              <a class="page-link pointer-events-none opacity-50" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+              </a>
+          </li>
+          {% for i in 1..maxPage %}
+              <li class="page-item {{ i == page ? 'bg-blue-500 text-white' : '' }}">
+                  <a class="rounded px-3 py-1 {{ i == page ? '' : 'hover:bg-gray-200' }}" href="?page={{ i }}" aria-current="page">
+                      {{ i }}
+                  </a>
+              </li>
+          {% endfor %}
+
+          <!-- Next button -->
+          <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+              </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 {%endblock%}

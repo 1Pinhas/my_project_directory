@@ -20,14 +20,22 @@ class ClientController extends AbstractController
     {
         $formSearch = $this->createForm(SearchClientType::class);
         $formSearch->handleRequest($request);
+        $page = $request->query->getInt('page',1);
+        $count = 0;
+        $maxPage = 0;
+        $limit = 3;
         if ($formSearch->isSubmitted($request) && $formSearch->isValid()) {
             $clients = $clientRepository->findBy(['phone'=> $formSearch->get('phone')->getData()]);
         }else {
-            $clients = $clientRepository->findAll();
+            $clients = $clientRepository->paginateClients($page, $limit);
+            $count = $clients->count();
+            $maxPage = ceil($count /$limit);
         }
         return $this->render('client/index.html.twig', [
             'datas'=> $clients,
             'formSearch'=> $formSearch->createView(),
+            'page' => $page,
+            'maxPage'=> $maxPage,
         ]);
     }
     //utilsationn des path variables(les données en parametres)
