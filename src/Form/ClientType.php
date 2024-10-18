@@ -16,48 +16,80 @@ use Symfony\Component\Validator\Constraints\Regex;
 
 class ClientType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    /* public function buildForm(FormBuilderInterface $builder, array $options): void
+    // {
+    //     $builder
+    //         ->add('phone', TextType::class,[
+    //             'required'=> false, 
+    //             'attr' => [
+    //                 'placeholder'=> '773893258',
+    //                 // 'pattern' => '^([77|78|76])[0-9]{7}$',
+    //                 // 'class' => 'text-danger'
+    //             ],
+    //             'constraints' => [
+    //                 new NotBlank([
+    //                     'message'=> 'Veuillez renseigner un numero valide'
+    //                 ]),
+    //                 new NotNull([
+    //                     'message'=> 'le telephone ne doit pas etre vide '
+    //                 ]),
+    //                 new Regex('/^([77|78|76])([0-9]{8})$/',
+    //                     'Le numero de telephone doit conformer au format telephone'
+    //                 )
+    //             ]
+    //             ])
+                
+    //         ->add('surname', TextType::class,[
+    //             'required'=> false,
+    //         ])
+    //         ->add('adresse', TextareaType::class,[
+    //             'required'=> false,
+    //         ])
+    //         // ->add('createAt', null, [
+    //         //     'widget' => 'single_text',
+    //         // ])
+    //         // ->add('updateAt', null, [
+    //         //     'widget' => 'single_text',
+    //         // ])
+    //         // ->add('users', EntityType::class, [
+    //         //     'class' => User::class,
+    //         //     'choice_label' => 'id',
+    //         // ])
+    //         ->add('Save', SubmitType::class)
+    //     ;
+    // }
+    */
+
+    
+    public function buildForm(FormBuilderInterface $builder, array $options): void // formulaire dynamique avec form Event
     {
         $builder
-            ->add('phone', TextType::class,[
-                'required'=> false, 
+            ->add('phone', TextType::class, [
+                'required' => false,
                 'attr' => [
-                    'placeholder'=> '773893258',
-                    // 'pattern' => '^([77|78|76])[0-9]{7}$',
-                    // 'class' => 'text-danger'
+                    'placeholder' => '773893258',
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message'=> 'Veuillez renseigner un numero valide'
+                        'message' => 'Veuillez renseigner un numero valide'
                     ]),
                     new NotNull([
-                        'message'=> 'le telephone ne doit pas etre vide '
+                        'message' => 'le telephone ne doit pas etre vide '
                     ]),
-                    new Regex('/^([77|78|76])([0-9]{8})$/',
-                        'Le numero de telephone doit conformer au format telephone'
-                    )
+                    new Regex('/^([77|78|76])([0-9]{8})$/', 'Le numero de telephone doit conformer au format telephone')
                 ]
-                ])
-                
-            ->add('surname', TextType::class,[
-                'required'=> false,
             ])
-            ->add('adresse', TextareaType::class,[
-                'required'=> false,
+            ->add('surname', TextType::class, [
+                'required' => false,
             ])
-            // ->add('createAt', null, [
-            //     'widget' => 'single_text',
-            // ])
-            // ->add('updateAt', null, [
-            //     'widget' => 'single_text',
-            // ])
-            // ->add('users', EntityType::class, [
-            //     'class' => User::class,
-            //     'choice_label' => 'id',
-            // ])
-            ->add('Save', SubmitType::class)
-        ;
+            ->add('adresse', TextareaType::class, [
+                'required' => false,
+            ])
+            ->add('Save', SubmitType::class);
+
+        $builder->addEventSubscriber(new \App\EventSubscriber\FormSubscriber());
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

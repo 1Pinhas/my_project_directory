@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 
 class SearchClientType extends AbstractType
 {
+    /*
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -41,6 +42,34 @@ class SearchClientType extends AbstractType
             ]
 
         ]);
+    }
+    */
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void // formulaire dynamique avec form Event
+    {
+        $builder
+            ->add('phone', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'phone',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un numero valide'
+                    ]),
+                    new NotNull([
+                        'message' => 'le telephone ne doit pas etre vide '
+                    ]),
+                    new Regex('/^([77|78|76])([0-9]{8})$/', 'Le numero de telephone doit etre au format telephone')
+                ]
+            ])
+            ->add('Search', SubmitType::class, [
+                'attr' => [
+                    'class' => 'border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white font-medium rounded-md px-4 py-2'
+                ]
+            ]);
+
+        $builder->addEventSubscriber(new \App\EventSubscriber\FormSubscriber());
     }
 
     public function configureOptions(OptionsResolver $resolver): void
